@@ -168,7 +168,7 @@ export const query = graphql`query($language: String!) {
       }
     }
   }
-  locale: allLocale(filter: {ns: {eq: "services"}, language: {eq: $language}}) {
+  locales: allLocale(filter: {ns: {eq: "services"}, language: {eq: $language}}) {
     edges {
       node {
         ns

@@ -289,7 +289,7 @@ export const query = graphql`
         }
       }
     }
-    locale: allLocale(filter: {ns: {eq: "artists_imidiwan"}, language: {eq: $language}}) {
+    locales: allLocale(filter: {ns: {eq: "artists_imidiwan"}, language: {eq: $language}}) {
       edges {
         node {
           ns

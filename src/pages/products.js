@@ -201,7 +201,7 @@ export const query = graphql`query($language: String!) {
         }
     }
 
-    locale: allLocale(filter: {ns: {eq: "products"}, language: {eq: $language}}) {
+    locales: allLocale(filter: {ns: {eq: "products"}, language: {eq: $language}}) {
       edges {
         node {
           ns

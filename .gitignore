@@ -2,4 +2,4 @@ node_modules/
 .cache/
 public
 bado-prod-vitrine-900b7485f08a.json
-.env.development
+.env*

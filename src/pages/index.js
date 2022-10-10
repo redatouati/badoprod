@@ -198,6 +198,8 @@ const IndexPage = ({data}) => {
 
   const { t } = useTranslation();
 
+  console.log(t("businessservicetext"));
+
   
   const displayImage = (name) => {
     return cardsImages.filter(img => img.node.name === name)[0]
@@ -316,7 +318,7 @@ export const query = graphql`query($language: String!) {
       }
     }
   }
-  locale: allLocale(filter: {ns: {eq: "home"}, language: {eq: $language}}) {
+  locales: allLocale(filter: {ns: {eq: "home"}, language: {eq: $language}}) {
     edges {
       node {
         ns

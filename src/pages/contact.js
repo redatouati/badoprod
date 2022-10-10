@@ -119,7 +119,7 @@ const Contactpage = () => {
 export default Contactpage;
 
 export const query = graphql`query($language: String!) {
-    locale: allLocale(filter: {ns: {eq: "contact"}, language: {eq: $language}}) {
+    locales: allLocale(filter: {ns: {eq: "contact"}, language: {eq: $language}}) {
       edges {
         node {
           ns

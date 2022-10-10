@@ -47,7 +47,7 @@ module.exports = {
     resolve: `gatsby-source-filesystem`,
     options: {
       path: `${__dirname}/src/locals`,
-      name: `locale`
+      name: `locales`
     }
   },{
     resolve: `gatsby-source-sanity`,
@@ -64,7 +64,7 @@ module.exports = {
   }, {
     resolve: `gatsby-plugin-react-i18next`,
     options: {
-      localeJsonSourceName: `locale`,
+      localeJsonSourceName: `locales`,
       languages: [`en`, `fr`, `ar`],
       defaultLanguage: `en`,
       siteUrl: `http://localhost:8000/`,
