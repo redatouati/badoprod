@@ -1,114 +1,184 @@
 import React from 'react';
+import {useTranslation} from 'gatsby-plugin-react-i18next';
 import Layout from '../components/Layout';
-import {Link} from 'gatsby';
-import { mainPageStyle as mainStyle, boxStyle } from '../styles/services';
+import {Link, graphql} from 'gatsby';
+import { mainPageStyle as mainStyle} from '../styles/services';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {Box, Paper, Grid, Typography, Button} from '@mui/material';
 import { Container } from '@mui/system';
-
+import SearchEngineOptimization from '../components/utility/Seo';
+import { t } from 'i18next';
 
 
 
 const Item = ({service}) => {
+
+  const {image, title} = service
 
    return (
 
       <Paper 
         elevation={3} 
         sx= {{
-              height: {xs: 'auto', md: 150}, 
-              width: {xs: 'auto', md: 250},
+              width: 250,
+              height: 300,
               display: 'flex',
-              justifyContent: 'center',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              px: 1,
+              p: 2,
             }}
       >
 
-        <Typography 
-          component='p' 
-          sx={{
-            fontFamily: 'monospace',
-            fontSize: {xs: 15, sm: 25, md: 20},
-            fontWeight: 650,
-            letterSpacing: '.05rem',
-            color: 'inherit',
-            textDecoration: 'none',
-            textAlign: 'center',
-            height: 'auto', 
-          }}
-        >
-         {service}
-        </Typography>
+        <Box>
+
+          <GatsbyImage 
+            image={getImage(image)}
+            alt={image.name}
+            width={400}
+            height={300}
+          />
+
+        </Box>
+
+   
+          <Typography 
+            paragraph
+            sx={{
+              height: 100,
+              fontFamily: 'RotoFont',
+              fontSize: 20,
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+          {title}
+          </Typography>
+
+      
       </Paper>
 
    )
 
 }
 
-const ServicesPage = () => {
+const ServicesPage = ({data}) => {
 
-  const services = ['Investment advice and company creation', 
-                    'Communication strategy consulting and advertising', 
-                    'Visual identity - BRANDING - creation', 
-                    'Audio-visual production',
-                    'Classic & digital marketing',
-                    'Website creation and optimazation',
-                    'Network installation, data processing',
-                    'Offset and digital printing on any support, signage panel'
-                   ]
+  const cardsImages = data.allFile.edges;
+  
+  const {t} = useTranslation()
+
+  const displayImage = (name) => {
+    return cardsImages.filter(img => img.node.name === name)[0].node
+
+  }
+
+  console.log(t("Investment advice and company creation"));
+
+
+
+  const services = [{title: t("Investment advice and company creation"), image: displayImage('investment')}, 
+                    {title: t("Communication strategy consulting and advertising"), image: displayImage('comunication')}, 
+                    {title: t("Visual identity - BRANDING - creation"), image: displayImage('branding')}, 
+                    {title: t("Audio-visual production"), image: displayImage('audio-visio-prod')},
+                    {title: t("Classic & digital marketing"), image: displayImage('marketing')},
+                    {title: t("Website creation and optimazation"), image: displayImage('webdev')},
+                    {title: t("Network installation, data processing"), image: displayImage('comunication')},
+                    {title: t("Offset and digital printing on any support, signage panel"), image: displayImage('digital-priniting')}
+                  ]
 
   return (
+    
     <Layout pageTitle='Our Services' pageStyle={mainStyle} context='light'>
-        <Container>
-              <Grid 
-                container 
-                spacing={{xs: 4, sm: 3, md: 2}} 
-                sx={{py: 2, my: 7,}}
+
+        <Container sx={{m: 'auto'}}>
+
+        <Grid 
+            container 
+            spacing= {2} 
+            sx={{
+              py: 1,
+              my: 7,
+            }}
+          >
+            {services.map((service, i) => (
+
+                <Grid key={i} item xs={12} md={4}>
+
+                    <Item service={service}/>
+
+                </Grid>
+
+            ))}
+            <Grid item xs={12} md={4}>
+
+              <Paper 
+                elevation={3} 
+                sx= {{
+                      width: 250,
+                      height: 300,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      p: 2,
+                    }}
               >
-                {services.map((service, i) => (
 
-                    <Grid key={i} item xs={12} md={3}>
+                <Typography
+                    variant='h3'
+                    gutterBottom
+                    sx={{
+                      textAlign: 'center',
+                      fontSize: 30,
+                      fontFamily: 'RotoFont'
+                    }}
+                >
+                  {t("Interested in working with us ?")}
+                  <br/>
+                  <Button variant='contained' sx={{my: 2, fontFamily: 'RotoFont'}} size='medium'>
+                    <Link to='/contactus' style={{fontSize: '25', textDecoration: 'none', color: 'white'}}> {t("CONTACT US")}</Link>
+                  </Button>
+                  
+                </Typography>
 
-                       <Item service={service}/>
-
-                    </Grid>
-
-                ))}
-              </Grid>
-
-              <Box 
-                component='div'
-                sx={{
-                  height: {md: '30vh', xs: '25vh'},
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-
-              <Typography
-                variant='h3'
-                sx={{
-                  textAlign: 'center',
-                  fontSize: {xs: 20, sm: 40, md: 45},
-                }}
-              >
-                Interested by working with us ? 
-                <br/>
-                <Button variant='contained' sx={{my: 2}} size='medium'>
-                   <Link to='/contactus' style={{fontSize: '25', textDecoration: 'none', color: 'white'}}> contact us</Link>
-                </Button>
+              </Paper>
                 
-              </Typography>
+            </Grid>
+          </Grid>
 
-        </Box>
-
-      </Container>
-          
+        </Container>
+        
+           
     </Layout>
     
   )
 }
 
-export default ServicesPage;
+export default ServicesPage
+
+export const query = graphql`query($language: String!) {
+  allFile(filter: {sourceInstanceName: {eq: "services_illustrations"}}) {
+    edges {
+      node {
+        name,
+        childImageSharp {
+          gatsbyImageData(placeholder: BLURRED)
+        } 
+      }
+    }
+  }
+  locale: allLocale(filter: {ns: {eq: "services"}, language: {eq: $language}}) {
+    edges {
+      node {
+        ns
+        language
+        data
+      }
+    }
+  }
+}` 
+
+export const Head = () => (
+  <SearchEngineOptimization title='SERVICES'/>
+)

@@ -19,7 +19,8 @@ const DropdownMenu = ({page, context}) => {
       setAnchorEl(event.currentTarget);
     }
   
-    const handleClose = () => {
+    const handleClose = (e) => {
+
       setAnchorEl(null);
     }
     
@@ -32,7 +33,7 @@ const DropdownMenu = ({page, context}) => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-          sx={{color: context === 'dark' ? 'white' : 'black', fontWeight: 600}}
+          sx={{color: 'white', fontWeight: 500, fontSize: 14, fontFamily: 'RotoFont'}}
           endIcon= {<ArrowDropDown/>}
 
         >
@@ -51,7 +52,7 @@ const DropdownMenu = ({page, context}) => {
             children.map((child, i) => (
               
               <MenuItem onClick={handleClose} key={i}>
-                 <Link to={child.link} style={{color: 'black' , textDecoration: 'none', fontWeight: 600}}>
+                 <Link to={child.link} style={{color: 'black' , textDecoration: 'none', fontFamily: 'RotoFont'}}>
                     {child.title}
                   </Link>
               </MenuItem> 

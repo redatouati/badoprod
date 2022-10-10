@@ -4,5 +4,16 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    /*overflow-y: hidden;*/
+}
+
+@font-face {
+    font-family: "RotoFont";
+    src: local("RotoFont"), url("../fonts/RotoFont/RotoFont.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "RotoFontBold";
+    src: local("RotoFont"), url("../fonts/RotoFont/RotoFont-Bold.ttf") format("truetype");
+    font-weight: bold;
 }

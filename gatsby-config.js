@@ -4,8 +4,10 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `badou_prod_vitrine`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Bado Prod`,
+    description: `A marketing agency specialized in digital and classical marketing`,
+    siteUrl: `https://www.badoprod.com`,
+    image: '/icon.png'
   },
   plugins: ["gatsby-plugin-image", "gatsby-plugin-react-helmet", {
     resolve: 'gatsby-plugin-manifest',
@@ -30,10 +32,23 @@ module.exports = {
   },{
     resolve: 'gatsby-source-filesystem',
     options: {
-      "name": "products_images",
-      "path": "./src/media/products_images"
+      "name": "cards_illustations",
+      "path": "./src/media/cards_illustrations"
     },
-    __key: "products_images"
+    __key: "cards_illustations"
+  },{
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      "name": "services_illustrations",
+      "path": "./src/media/services_illustrations"
+    },
+    __key: "services_illustrations"
+  },{
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      path: `${__dirname}/src/locals`,
+      name: `locale`
+    }
   },{
     resolve: `gatsby-source-sanity`,
     options: {
@@ -43,6 +58,24 @@ module.exports = {
       token: process.env.SANITY_TOKEN,
       graphqlTag: 'default',
     },
-  },]
+  },{  
+    resolve: `gatsby-source-instagram-all`,
+    options: { access_token: process.env.IMIDIWAN_INSTAGRAM_ACCESS_TOKEN}
+  }, {
+    resolve: `gatsby-plugin-react-i18next`,
+    options: {
+      localeJsonSourceName: `locale`,
+      languages: [`en`, `fr`, `ar`],
+      defaultLanguage: `en`,
+      siteUrl: `http://localhost:8000/`,
+      i18nextOptions: {
+        interpolation: {
+          escapeValue: false 
+        },
+        keySeparator: false,
+        nsSeparator: false
+      },
+    }
+  }]
 
 };
