@@ -24,7 +24,7 @@ const Header = ({context, t}) => {
     {title: t("HOME"), link: '/', isDropdown: false},
     {title: t("OUR SERVICES"), link: '/services', isDropdown: false},
     {title: t("PRODUCTS"), link: '/products', isDropdown: false}, 
-    {title: t("ART & ARTISTS"), isDropdown: true, children: [{title: "IMIDIWAN", link: '/artists/imidiwan'}]}, 
+    {title: t("EVENTS"), isDropdown: true, children: [{title: "IMIDIWAN", link: '/'}]}, 
     {title: t("CONTACT US"), link: '/contact', isDropdown: false}
   ];
   
@@ -171,7 +171,8 @@ const Header = ({context, t}) => {
                         fontSize: 14, 
                         fontWeight: 500,
                         fontFamily: 'RotoFont',
-                        letterSpacing: 0.4,
+                        letterSpacing: 3,
+
                     }}
                   >
                     {page.title}

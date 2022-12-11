@@ -33,7 +33,7 @@ const DropdownMenu = ({page, context}) => {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
-          sx={{color: 'white', fontWeight: 500, fontSize: 14, fontFamily: 'RotoFont'}}
+          sx={{color: 'white', fontWeight: 500, fontSize: 14, fontFamily: 'RotoFont',  letterSpacing: 3}}
           endIcon= {<ArrowDropDown/>}
 
         >
