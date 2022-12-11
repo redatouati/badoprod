@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Grid, Container, Stack, Typography, IconButton } from '@mui/material';
+import { withTrans } from '../i18n/withTrans';
+import { Box, Grid, Stack, Typography, IconButton } from '@mui/material';
 import { Link } from 'gatsby';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -7,9 +8,9 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
-const Footer = () => {
+const Footer = ({t}) => {
 
-  const links = [{title: 'Home', link: '/'}, {title: 'Our services', link: '/services'}, {title: 'Products', link: '/products'}, {title: 'Contact us', link: 'contact'}]
+  const links = [{title: t("Home"), link: '/'}, {title: t("Our services"), link: '/services'}, {title: t("Our products"), link: '/products'}, {title: t("Contact us"), link: 'contact'}]
   
   const date = new Date()
 
@@ -65,7 +66,7 @@ const Footer = () => {
                   fontFamily: 'RotoFont',
                 }}
               >
-                36, chemin sidi yahiya, <br /> hydra-alger
+                {t("36, chemin sidi yahiya, hydra-alger")}
               </Typography>
               <Typography
                 sx={{
@@ -222,4 +223,4 @@ const Footer = () => {
 }
 
 
-export default Footer 
+export default withTrans(Footer, 'footer') 

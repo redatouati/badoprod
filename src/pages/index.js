@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
+import { withTrans } from "../i18n/withTrans";
 import { useAnimation, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import {useTranslation} from 'gatsby-plugin-react-i18next';
 import Layout from "../components/Layout";
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
@@ -13,9 +13,8 @@ import SearchEngineOptimization from "../components/utility/Seo";
 
 
 
-const TextSection = () => {
+const TextSection = ({t}) => {
 
-  const {t} = useTranslation()
 
   return(
 
@@ -46,7 +45,7 @@ const TextSection = () => {
             opacity: 0,
           }}
         >
-          Quality, not quantity
+          {t("Quality, not quantity")}
         </Typography>
         <br />
         <Typography
@@ -191,21 +190,16 @@ const ServicesCards = ({service, index}) => {
 
 
 
-const IndexPage = ({data}) => {
+const IndexPage = ({data, t}) => {
 
 
   const cardsImages = data.allFile.edges
-
-  const { t } = useTranslation();
-
-  console.log(t("businessservicetext"));
 
   
   const displayImage = (name) => {
     return cardsImages.filter(img => img.node.name === name)[0]
 
   }
-
 
 
   const services = [
@@ -235,7 +229,7 @@ const IndexPage = ({data}) => {
         <Box sx={descriptionStyle}>
           <Grid container>
             <Grid item xs={12} md={6}>
-              <TextSection />
+              <TextSection t={t}/>
             </Grid>
           </Grid>  
         </Box>
@@ -305,9 +299,11 @@ const IndexPage = ({data}) => {
   )
 }
 
-export default IndexPage
+export default withTrans(IndexPage, 'home')
 
-export const query = graphql`query($language: String!) {
+/**/
+
+export const query = graphql`query{
   allFile(filter: {sourceInstanceName: {eq: "cards_illustations"}}) {
     edges {
       node {
@@ -315,15 +311,6 @@ export const query = graphql`query($language: String!) {
         childImageSharp {
           gatsbyImageData(placeholder: BLURRED, width: 400, height: 400)
         } 
-      }
-    }
-  }
-  locales: allLocale(filter: {ns: {eq: "home"}, language: {eq: $language}}) {
-    edges {
-      node {
-        ns
-        language
-        data
       }
     }
   }

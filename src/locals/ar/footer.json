@@ -1,8 +1,7 @@
 {
-    "navbarLinks": {
-        "home": "Home",
-        "ourservices": "Our services",
-        "products": "Products",
-        "contactus": "Contact us"
-    }
+    "Home": "رئيسي",
+    "Our services": "خدماتنا",
+    "Our products": "منتجاتنا",
+    "Contact us": "اتصل بنا",
+    "36, chemin sidi yahiya, hydra-alger": "طريق سيدي يحي، حيدرة ـ الجزائر 36"  
 }

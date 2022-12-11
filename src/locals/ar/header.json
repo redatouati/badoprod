@@ -1,10 +1,8 @@
-{
-    "navbarLinks": {
-        "HOME": "رئيسي",
-        "OUR SERVICES": "خدماتنا",
-        "PRODUCTS": "منتجاتنا",
-        "ART & ARTISTS": "فن وفنانين",
-        "CONTACT US": "اتصل بنا",
-        "IMIDIWAN": "إميديوان"
-    }
+{ 
+    "HOME": "رئيسي",
+    "OUR SERVICES": "خدماتنا",
+    "PRODUCTS": "منتجاتنا",
+    "ART & ARTISTS": "فن وفنانين",
+    "CONTACT US": "اتصل بنا",
+    "IMIDIWAN": "إميديوان"  
 }

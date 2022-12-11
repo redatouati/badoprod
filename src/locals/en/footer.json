@@ -1,8 +1,7 @@
-{
-    "navbarLinks": {
-        "home": "Home",
-        "ourservices": "Our services",
-        "products": "Products",
-        "contactus": "Contact us"
-    }
+{ 
+    "Home": "Home",
+    "Our services": "Our services",
+    "Our products": "Our products",
+    "Contact us": "Contact us",
+    "36, chemin sidi yahiya, hydra-alger": "36, chemin sidi yahiya, hydra-alger"
 }

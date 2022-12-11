@@ -1,23 +1,25 @@
-import React, {useState, useContext} from 'react';
-import {useI18next, I18nextContext} from 'gatsby-plugin-react-i18next';
+import React from 'react';
 import {Box, MenuItem, FormControl, Select }from '@mui/material';
+import { useTranslation } from "react-i18next"
 
 
  const LanguageSwitcher = () => {
 
- const context = useContext(I18nextContext);   
+ 
+ const languages = ['en', 'fr', 'ar']
 
- const {languages, changeLanguage,originalPath} = useI18next();
- const [language, setLanguage] = useState(context.language);
+ const {i18n} = useTranslation()
+
+ const { language, changeLanguage} = i18n;
+
 
 
  const handleChange = (event) => {
 
     changeLanguage(event.target.value)
 
-    setLanguage(event.target.value);
-
  };
+
 
 
   return (
@@ -25,8 +27,8 @@ import {Box, MenuItem, FormControl, Select }from '@mui/material';
         <FormControl size="small" variant="standard" sx={{color: 'white'}}>
             <Select
                 id="demo-simple-select"
-                value={language}
-                label={language}
+                value={language.split('-')[0]}
+                label={language.split('-')[0]}
                 variant="standard"
                 sx={{color: 'white', fontFamily: 'RotoFontBold'}}
                 onChange={handleChange}

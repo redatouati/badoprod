@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { withTrans } from '../../i18n/withTrans';
 import { graphql } from 'gatsby';
-import {useTranslation} from 'gatsby-plugin-react-i18next';
 import Layout from '../../components/Layout';
-import {Grid, Box, Stack, Paper, Typography, IconButton } from '@mui/material';
+import {Grid, Box, Stack, Paper, Typography} from '@mui/material';
 import SocialMediaContainer from '../../components/SocialMediaContainer';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
@@ -14,12 +14,7 @@ import {mainPageStyle as mainStyle}  from '../../styles/bandpage';
 
 
 
-const ParagraphComponent = ({title, description}) => {
-
-  const {t} = useTranslation()
-
-  console.log(t(title));
-
+const ParagraphComponent = ({title, t}) => {
 
   return (
 
@@ -60,15 +55,13 @@ const ParagraphComponent = ({title, description}) => {
 
 }
 
-const BandMember = ({bandMember}) => {
+const BandMember = ({bandMember, t}) => {
 
   const memberImage = getImage(bandMember.image.asset)
 
   const {role, name} = bandMember
 
-  const {t} = useTranslation()
-
-
+  
 
   return (
     
@@ -98,13 +91,11 @@ const BandMember = ({bandMember}) => {
   )
 }
 
-const ImageGalery = ({album}) => {
+const ImageGalery = ({album, t}) => {
 
   const {edges} = album
 
-  const {t} = useTranslation()
-
-
+ 
   return(
     <Paper
       elevation={3}
@@ -155,12 +146,11 @@ const ImageGalery = ({album}) => {
 }
 
 
-const ArtistPage = ({data}) => {
+const ArtistPage = ({data, t}) => {
 
-    const {t} = useTranslation()
-
+  
     const {sanityBand} = data
-    const {allInstagramContent} = data
+    //const {allInstagramContent} = data
     const {_rawSocialmedia: socialMedia} = sanityBand
     const posterImage = getImage(sanityBand.poster.asset.gatsbyImageData)
 
@@ -193,8 +183,8 @@ const ArtistPage = ({data}) => {
           <Box sx={{height: '100%'}}>
             <Grid container>
               <Grid item xs={12} md={6}>
-                <ParagraphComponent title={sanityBand.name} description={sanityBand.presentation}/>
-                <ImageGalery album={allInstagramContent}/>
+                <ParagraphComponent title={sanityBand.name} description={sanityBand.presentation} t={t}/>
+                {/*<ImageGalery album={allInstagramContent}/>*/}
               </Grid>
   
               <Grid item xs={12} md={6}>
@@ -221,7 +211,7 @@ const ArtistPage = ({data}) => {
                       {
                         sanityBand.bandMembers.map((bandMember, i) => (
 
-                          <BandMember key={i} bandMember={bandMember}/>
+                          <BandMember key={i} bandMember={bandMember} t={t}/>
 
                         ))
                       }  
@@ -232,6 +222,7 @@ const ArtistPage = ({data}) => {
                 <SocialMediaContainer 
                     socialMediaItems={socialMediaItems} headerText={t("socialMediaText")} 
                     style={{m: {xs: 2, md: 4},p: {xs: 2, md: 4},}}
+                    t={t}
                   />
               </Grid>  
             </Grid>
@@ -243,9 +234,12 @@ const ArtistPage = ({data}) => {
       )
 
 }
+
+
+
  
 export const query = graphql`
-  query ($id: String, $language: String!) {
+  query ($id: String) {
     sanityBand(id: {eq: $id}) {
       name
       poster {
@@ -278,7 +272,10 @@ export const query = graphql`
         }
       }
     },
-    allInstagramContent {
+
+  }`
+
+  /*allInstagramContent {
       edges {
         node {
           localFile {
@@ -288,19 +285,11 @@ export const query = graphql`
           }
         }
       }
-    }
-    locales: allLocale(filter: {ns: {eq: "artists_imidiwan"}, language: {eq: $language}}) {
-      edges {
-        node {
-          ns
-          language
-          data
-        }
-      }
-    }
-  }`
+    }*/
 
-export default ArtistPage 
+
+
+export default withTrans(ArtistPage, 'imidiwan')
 
 export const Head = ({data}) => (
   <SearchEngineOptimization title={`Badoprod-${data.sanityBand.name}`} />

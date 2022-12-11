@@ -44,12 +44,6 @@ module.exports = {
     },
     __key: "services_illustrations"
   },{
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      path: `${__dirname}/src/locals`,
-      name: `locales`
-    }
-  },{
     resolve: `gatsby-source-sanity`,
     options: {
       watchMode: true,
@@ -58,24 +52,8 @@ module.exports = {
       token: process.env.SANITY_TOKEN,
       graphqlTag: 'default',
     },
-  },{  
+  },/*{  
     resolve: `gatsby-source-instagram-all`,
     options: { access_token: process.env.IMIDIWAN_INSTAGRAM_ACCESS_TOKEN}
-  }, {
-    resolve: `gatsby-plugin-react-i18next`,
-    options: {
-      localeJsonSourceName: `locales`,
-      languages: [`en`, `fr`, `ar`],
-      defaultLanguage: `en`,
-      siteUrl: `http://localhost:8000/`,
-      i18nextOptions: {
-        interpolation: {
-          escapeValue: false 
-        },
-        keySeparator: false,
-        nsSeparator: false
-      },
-    }
-  }]
-
-};
+  }*/
+]};

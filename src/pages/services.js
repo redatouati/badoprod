@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTranslation} from 'gatsby-plugin-react-i18next';
+import { withTrans } from "../i18n/withTrans";
 import Layout from '../components/Layout';
 import {Link, graphql} from 'gatsby';
 import { mainPageStyle as mainStyle} from '../styles/services';
@@ -7,7 +7,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {Box, Paper, Grid, Typography, Button} from '@mui/material';
 import { Container } from '@mui/system';
 import SearchEngineOptimization from '../components/utility/Seo';
-import { t } from 'i18next';
 
 
 
@@ -62,19 +61,14 @@ const Item = ({service}) => {
 
 }
 
-const ServicesPage = ({data}) => {
+const ServicesPage = ({data, t}) => {
 
   const cardsImages = data.allFile.edges;
-  
-  const {t} = useTranslation()
 
   const displayImage = (name) => {
     return cardsImages.filter(img => img.node.name === name)[0].node
 
   }
-
-  console.log(t("Investment advice and company creation"));
-
 
 
   const services = [{title: t("Investment advice and company creation"), image: displayImage('investment')}, 
@@ -155,9 +149,9 @@ const ServicesPage = ({data}) => {
   )
 }
 
-export default ServicesPage
+export default withTrans(ServicesPage, 'services')
 
-export const query = graphql`query($language: String!) {
+export const query = graphql`query{
   allFile(filter: {sourceInstanceName: {eq: "services_illustrations"}}) {
     edges {
       node {
@@ -168,16 +162,8 @@ export const query = graphql`query($language: String!) {
       }
     }
   }
-  locales: allLocale(filter: {ns: {eq: "services"}, language: {eq: $language}}) {
-    edges {
-      node {
-        ns
-        language
-        data
-      }
-    }
-  }
 }` 
+
 
 export const Head = () => (
   <SearchEngineOptimization title='SERVICES'/>

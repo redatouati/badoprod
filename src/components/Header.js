@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Trans, useTranslation, Link} from 'gatsby-plugin-react-i18next';
+import { withTrans } from '../i18n/withTrans';
+import {Link} from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import {AppBar, Box, Toolbar, IconButton, Menu, Container, Button} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,19 +13,19 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 
 
-const Header = ({context}) => {
-
+const Header = ({context, t}) => {
+  
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [shadow, setShadow] = useState('none');
   const [switchStyle, setSwitchStyle] = useState(false)
 
   const pages = [
-    {title: "HOME", link: '/', isDropdown: false},
-    {title: "OUR SERVICES", link: '/services', isDropdown: false},
-    {title: "PRODUCTS", link: '/products', isDropdown: false}, 
-    {title: "ART & ARTISTS", isDropdown: true, children: [{title: "IMIDIWAN", link: '/artists/imidiwan'}]}, 
-    {title: "CONTACT US", link: '/contact', isDropdown: false}
+    {title: t("HOME"), link: '/', isDropdown: false},
+    {title: t("OUR SERVICES"), link: '/services', isDropdown: false},
+    {title: t("PRODUCTS"), link: '/products', isDropdown: false}, 
+    {title: t("ART & ARTISTS"), isDropdown: true, children: [{title: "IMIDIWAN", link: '/artists/imidiwan'}]}, 
+    {title: t("CONTACT US"), link: '/contact', isDropdown: false}
   ];
   
   
@@ -48,7 +49,7 @@ const Header = ({context}) => {
 
   const inheritMode = {backgroundColor: 'inherit', boxShadow: shadow}
 
-  let basicStyle = context === 'dark' &&  switchStyle == false  ? inheritMode : gradient
+  let basicStyle = context === 'dark' &&  switchStyle === false  ? inheritMode : gradient
 
 
 
@@ -59,10 +60,7 @@ const Header = ({context}) => {
 
     const handleShadowEffect = () => {
 
-
       const windowPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-
-    
 
       if(typeof window !== 'undefined' && windowPosition === 0) {
          setShadow('none')
@@ -73,7 +71,6 @@ const Header = ({context}) => {
       }
 
       
-
       if(typeof window !== 'undefined' && windowPosition > 0) {
 
         setSwitchStyle(true)
@@ -87,8 +84,11 @@ const Header = ({context}) => {
       
     }
 
+    window.removeEventListener('scroll', handleShadowEffect)
 
     window.addEventListener('scroll', handleShadowEffect)
+
+    return () => window.removeEventListener('scroll', handleShadowEffect)
 
   }, [])
 
@@ -191,4 +191,4 @@ const Header = ({context}) => {
 
 
 
-export default Header
+export default withTrans(Header, 'header')

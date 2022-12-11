@@ -1,8 +1,7 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { withTrans } from '../i18n/withTrans';
 import Layout from '../components/Layout';
-import {useTranslation} from 'gatsby-plugin-react-i18next';
-import { Container, Grid, Box, Typography, Divider} from '@mui/material';
+import { Container, Grid, Box, Typography } from '@mui/material';
 import SearchEngineOptimization from '../components/utility/Seo';
 import {mainPageStyle as mainStyle} from '../styles/contact';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
@@ -16,11 +15,9 @@ import SocialMediaContainer from '../components/SocialMediaContainer';
 
 
 
-const Contactpage = () => {
+const Contactpage = ({t}) => {
 
-    const {t} = useTranslation()
-
-
+   
     const socialMediaItems = [
         {
             name: 'Instagram', 
@@ -55,6 +52,9 @@ const Contactpage = () => {
         phoneNumber: '00213 540 446 652',
         email: 'contact@badoprod.com'
     }
+
+    console.log(t("36, chemin sidi yahyia, hydra-alger"));
+
 
 
     return (
@@ -96,6 +96,7 @@ const Contactpage = () => {
                             }}
                         >
                             <iframe
+                                title='Bado_Prod_agency_locales '
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.2521495347164!2d3.0391144152210545!3d36.74051827996087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fad8b8153cf33%3A0xd129f57aa1cbb3a4!2sBADO%20PROD!5e0!3m2!1sfr!2sdz!4v1662023636145!5m2!1sfr!2sdz"
                                 width="100%" 
                                 height="350"
@@ -116,19 +117,7 @@ const Contactpage = () => {
 }
 
 
-export default Contactpage;
-
-export const query = graphql`query($language: String!) {
-    locales: allLocale(filter: {ns: {eq: "contact"}, language: {eq: $language}}) {
-      edges {
-        node {
-          ns
-          language
-          data
-        }
-      }
-    }
-  }`
+export default withTrans(Contactpage, 'contact');
 
 export const Head = () => (
     <SearchEngineOptimization title='CONTACT US' />

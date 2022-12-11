@@ -8,7 +8,6 @@ export default function ContactCard({info}) {
 
     const {title, address, phoneNumber, email} = info
 
-    console.log(title);
 
     
   return (

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Box, Container, IconButton, Typography} from '@mui/material';
+import { Box, IconButton, Typography} from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
@@ -18,13 +18,29 @@ const ProductsCataloge = ({images}) => {
 
   const nextImage = () => {
 
-    if (imageIndex <  images.length - 1)  setImageIndex(imageIndex + 1)
+    if (imageIndex <  images.length - 1) {
+
+       setImageIndex(imageIndex + 1)
+
+    } else if (imageIndex === images.length - 1) {
+
+      setImageIndex(0)
+
+    }
 
   }
 
   const previousImage = () => {
 
-    if (imageIndex > 0 )setImageIndex(imageIndex - 1)
+    if (imageIndex > 0 ) { 
+
+      setImageIndex(imageIndex - 1)
+
+    } else if (imageIndex === 0) {
+
+      setImageIndex(images.length - 1)
+
+    }
 
   }
 
@@ -79,9 +95,6 @@ const ProductsCataloge = ({images}) => {
 
           </Box> 
 
-          <Typography sx={{color: 'white', fontSize: 20}}>
-            {`${imageIndex +1} of ${images.length}`}
-          </Typography>
         </Box>
 
         

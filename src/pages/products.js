@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { useTranslation } from 'react-i18next';
+import { withTrans } from "../i18n/withTrans";
 import Layout from '../components/Layout';
 import { mainPageStyle as mainStyle } from '../styles/products';
 import { graphql } from 'gatsby';
-import {Grid, Paper, Box, Typography, Container, ImageList, ImageListItem, useMediaQuery} from '@mui/material';
+import {Box, Typography, Container, ImageList, ImageListItem } from '@mui/material';
 import { GatsbyImage, getImage} from 'gatsby-plugin-image';
 import SearchEngineOptimization from "../components/utility/Seo";
 import { motion } from "framer-motion";
@@ -11,15 +11,14 @@ import ProductsCataloge from '../components/ProductsCataloge';
 import BackgroundFilter from '../components/BackgroundFilter';
 
 
-const Item = ({item, i, handleClick}) => {
+const Item = ({item, i, t, handleClick}) => {
 
-  const {t} = useTranslation()
 
   const {node: {name, thumbnail}} = item
 
   const image = thumbnail.asset
 
-  const colors = ['#468189', '#77aca2', '#9dbebb']
+  const colors = /*['#468189', '#77aca2', '#9dbebb']*/ ['#A23B72', '#62A8AC', '#004346', '#2E86AB']
 
    
   return ( 
@@ -87,7 +86,7 @@ const Item = ({item, i, handleClick}) => {
 
 
 
-const Productpage = ({data}) => {
+const Productpage = ({data, t}) => {
 
     const {allSanityProduct: {edges}} = data
 
@@ -95,7 +94,6 @@ const Productpage = ({data}) => {
 
     const [images, setImages] = useState([])
 
-    const {t} = useTranslation()
 
     const closeCatalogue = () => {
          
@@ -150,7 +148,7 @@ const Productpage = ({data}) => {
              </Typography>
 
             <ImageList 
-              cols={3} 
+              cols={2} 
               rowHeight={250}
             >    
                 {
@@ -159,6 +157,7 @@ const Productpage = ({data}) => {
                         item={edge} 
                         key={i} 
                         i={i}
+                        t={t}
                         handleClick={handleClick}
                       /> ) )
                 }          
@@ -174,9 +173,9 @@ const Productpage = ({data}) => {
 
 
 
-export default Productpage;
+export default withTrans(Productpage, 'products');
 
-export const query = graphql`query($language: String!) {
+export const query = graphql`query{
 
     allSanityProduct {
         edges {
@@ -200,17 +199,11 @@ export const query = graphql`query($language: String!) {
           }
         }
     }
-
-    locales: allLocale(filter: {ns: {eq: "products"}, language: {eq: $language}}) {
-      edges {
-        node {
-          ns
-          language
-          data
-        }
-      }
-    }
+    
 }`
+
+
+
 
 
 export const Head = () => (
